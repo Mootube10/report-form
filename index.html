@@ -1,1 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Case</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label, textarea, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Log a Report Case</h1>
+    <form id="reportForm" enctype="multipart/form-data">
+        <!-- Staff Username -->
+        <label for="staffUsername">Staff Username :</label>
+        <input type="text" id="staffUsername" name="staffUsername" required><br><br>
+
+        <!-- Reported User Username -->
+        <label for="reportedUsername">Their Username:</label>
+        <input type="text" id="reportedUsername" name="reportedUsername" required><br><br>
+
+        <!-- Report Details -->
+        <label for="reportDetails">Report Details:</label>
+        <textarea id="reportDetails" name="reportDetails" rows="5" required></textarea><br><br>
+
+        <!-- Evidence Section -->
+        <label for="evidence">Upload Evidence (Image):</label>
+        <input type="file" id="evidence" name="evidence" accept="image/*"><br><br>
+
+        <button type="submit">Send Report</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('reportForm');
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const staffUsername = document.getElementById('staffUsername').value;
+            const reportedUsername = document.getElementById('reportedUsername').value;
+            const reportDetails = document.getElementById('reportDetails').value;
+            const evidence = document.getElementById('evidence').files[0]; // Get the uploaded image
+
+            // Webhook URL (replace with your actual Discord webhook URL)
+            const webhookURL = 'https://discord.com/api/webhooks/1293950139161116692/Hr6Tav--VwrpnI1JMuKXhsdWtQty8c1hQnYXngsJLMV32zXV2nR0LI2Y9iJ7_qenskyV';
+
+            // Formulate message content
+            const message = `**Staff Username:** ${staffUsername}\n**Reported User:** ${reportedUsername}\n**Report Details:** ${reportDetails}`;
+
+            // Send the report data to the Discord webhook
+            const formData = new FormData();
+            formData.append('content', message);
+
+            // Attach the evidence image if one is uploaded
+            if (evidence) {
+                formData.append('file', evidence);
+            }
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('Report submitted successfully!');
+                    form.reset(); // Reset form fields
+                } else {
+                    alert('Error submitting report.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('There was an issue submitting your report.');
+            }
+        });
+    </script>
+</body>
+</html>
 
