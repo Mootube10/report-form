@@ -33,17 +33,25 @@
 <body>
     <h1>Log a Report Case</h1>
     <form id="reportForm" enctype="multipart/form-data">
-        <!-- Staff Username -->
-        <label for="staffUsername">Staff Username :</label>
-        <input type="text" id="staffUsername" name="staffUsername" required><br><br>
+        <!-- Report handeler name  -->
+        <label for="staffUsername">Report handeler name :</label>
+        <input type="text" id="Reporthandelername" name="Reporthandelername" required><br><br>
 
-        <!-- Reported User Username -->
-        <label for="reportedUsername">Their Username:</label>
-        <input type="text" id="reportedUsername" name="reportedUsername" required><br><br>
+        <!-- Reporter username -->
+        <label for="reporterUsername">Reporter Username:</label>
+        <input type="text" id="reporterUsername" name="reporterUsername" required><br><br>
+
+        <!-- Person being reported -->
+        <label for="reportedUsername">Reported Username:</label>
+        <input type="text" id="ReportedUsername" name="Reportedusername" required><br><br>
 
         <!-- Report Details -->
         <label for="reportDetails">Report Details:</label>
         <textarea id="reportDetails" name="reportDetails" rows="5" required></textarea><br><br>
+
+        <!-- User position -->
+        <label for="Usersposition">Users position:</label>
+        <input type="text" id="Usersposition" name="Usersposition" required><br><br>
 
         <!-- Evidence Section -->
         <label for="evidence">Upload Evidence (Image):</label>
